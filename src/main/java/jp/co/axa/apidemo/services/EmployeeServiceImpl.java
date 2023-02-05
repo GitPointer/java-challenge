@@ -36,7 +36,14 @@ public class EmployeeServiceImpl implements EmployeeService{
         employeeRepository.deleteById(employeeId);
     }
 
-    public void updateEmployee(Employee employee) {
-        employeeRepository.save(employee);
+    public void updateEmployee(Employee employee,Long employeeId) {
+        Optional<Employee> optEmp = employeeRepository.findById(employeeId);
+        if (optEmp.isPresent()) {
+            Employee existingEmployee = optEmp.get();
+            existingEmployee.setName(employee.getName());
+            existingEmployee.setSalary(employee.getSalary());
+            existingEmployee.setDepartment(employee.getDepartment());
+            employeeRepository.save(existingEmployee);
+        }
     }
 }
