@@ -1,10 +1,14 @@
 package jp.co.axa.apidemo.services;
 
+import jp.co.axa.apidemo.dto.EmployeeRequestDTO;
+import jp.co.axa.apidemo.dto.EmployeeResponseDTO;
 import jp.co.axa.apidemo.entities.Employee;
 import jp.co.axa.apidemo.repositories.EmployeeRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,36 +18,51 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public void setEmployeeRepository(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+    @Autowired
+    private ModelMapper modelMapper;
 
-    public List<Employee> retrieveEmployees() {
+    public List<EmployeeResponseDTO> retrieveEmployees() {
         List<Employee> employees = employeeRepository.findAll();
-        return employees;
+        List<EmployeeResponseDTO> employeeResponseDTOS = new ArrayList<>();
+        employees.forEach(employee -> employeeResponseDTOS.add(modelMapper.map(employee, EmployeeResponseDTO.class)));
+        return employeeResponseDTOS;
     }
 
-    public Employee getEmployee(Long employeeId) {
-        Optional<Employee> optEmp = employeeRepository.findById(employeeId);
-        return optEmp.get();
+    public EmployeeResponseDTO getEmployee(Long employeeId) {
+        Optional<Employee> optEmployee = employeeRepository.findById(employeeId);
+        if (!optEmployee.isPresent()) {
+            //TODO Need to fix in Exception Handling
+            //throw new ResourceNotFoundException("Employee with id " + employeeId + " not found");
+        }
+        Employee employee = optEmployee.get();
+        return modelMapper.map(employee, EmployeeResponseDTO.class);
     }
 
-    public void saveEmployee(Employee employee){
-        employeeRepository.save(employee);
+    public EmployeeResponseDTO saveEmployee(EmployeeRequestDTO employeeRequestDTO){
+        Employee employee = modelMapper.map(employeeRequestDTO, Employee.class);
+        employee = employeeRepository.save(employee);
+        return modelMapper.map(employee, EmployeeResponseDTO.class);
     }
 
     public void deleteEmployee(Long employeeId){
+        Optional<Employee> optEmployee = employeeRepository.findById(employeeId);
+        if (!optEmployee.isPresent()) {
+            //TODO Need to fix in Exception Handling
+            //throw new ResourceNotFoundException("Employee not found for this id :: " + employeeId);
+        }
         employeeRepository.deleteById(employeeId);
     }
 
-    public void updateEmployee(Employee employee,Long employeeId) {
-        Optional<Employee> optEmp = employeeRepository.findById(employeeId);
-        if (optEmp.isPresent()) {
-            Employee existingEmployee = optEmp.get();
-            existingEmployee.setName(employee.getName());
-            existingEmployee.setSalary(employee.getSalary());
-            existingEmployee.setDepartment(employee.getDepartment());
-            employeeRepository.save(existingEmployee);
+    public void updateEmployee(EmployeeRequestDTO employeeRequestDTO, Long employeeId) {
+        Optional<Employee> optEmployee = employeeRepository.findById(employeeId);
+        if (!optEmployee.isPresent()) {
+            //TODO Need to fix in Exception Handling
+            //throw new ResourceNotFoundException("Employee with id " + employeeId + " not found");
         }
+        Employee employee = optEmployee.get();
+        employee.setName(employeeRequestDTO.getName());
+        employee.setSalary(employeeRequestDTO.getSalary());
+        employee.setDepartment(employeeRequestDTO.getDepartment());
+        employeeRepository.save(employee);
     }
 }

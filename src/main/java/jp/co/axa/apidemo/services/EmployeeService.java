@@ -1,18 +1,20 @@
 package jp.co.axa.apidemo.services;
 
+import jp.co.axa.apidemo.dto.EmployeeRequestDTO;
+import jp.co.axa.apidemo.dto.EmployeeResponseDTO;
 import jp.co.axa.apidemo.entities.Employee;
 
 import java.util.List;
 
 public interface EmployeeService {
 
-    public List<Employee> retrieveEmployees();
+    public List<EmployeeResponseDTO> retrieveEmployees();
 
-    public Employee getEmployee(Long employeeId);
+    public EmployeeResponseDTO getEmployee(Long employeeId);
 
-    public void saveEmployee(Employee employee);
+    public EmployeeResponseDTO saveEmployee(EmployeeRequestDTO employeeDTO);
 
     public void deleteEmployee(Long employeeId);
 
-    public void updateEmployee(Employee employee,Long employeeId);
+    public void updateEmployee(EmployeeRequestDTO employeeDTO, Long employeeId);
 }
