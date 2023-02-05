@@ -3,6 +3,7 @@ package jp.co.axa.apidemo.services;
 import jp.co.axa.apidemo.dto.EmployeeRequestDTO;
 import jp.co.axa.apidemo.dto.EmployeeResponseDTO;
 import jp.co.axa.apidemo.entities.Employee;
+import jp.co.axa.apidemo.excpetions.ApiRuntimeException;
 import jp.co.axa.apidemo.repositories.EmployeeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     public EmployeeResponseDTO getEmployee(Long employeeId) {
         Optional<Employee> optEmployee = employeeRepository.findById(employeeId);
         if (!optEmployee.isPresent()) {
-            //TODO Need to fix in Exception Handling
-            //throw new ResourceNotFoundException("Employee with id " + employeeId + " not found");
+            throw new ApiRuntimeException("Employee with id " + employeeId + " not found");
         }
         Employee employee = optEmployee.get();
         return modelMapper.map(employee, EmployeeResponseDTO.class);
@@ -47,22 +47,21 @@ public class EmployeeServiceImpl implements EmployeeService{
     public void deleteEmployee(Long employeeId){
         Optional<Employee> optEmployee = employeeRepository.findById(employeeId);
         if (!optEmployee.isPresent()) {
-            //TODO Need to fix in Exception Handling
-            //throw new ResourceNotFoundException("Employee not found for this id :: " + employeeId);
+            throw new ApiRuntimeException("Employee not found for this id :: " + employeeId);
         }
         employeeRepository.deleteById(employeeId);
     }
 
-    public void updateEmployee(EmployeeRequestDTO employeeRequestDTO, Long employeeId) {
+    public EmployeeResponseDTO updateEmployee(EmployeeRequestDTO employeeRequestDTO, Long employeeId) {
         Optional<Employee> optEmployee = employeeRepository.findById(employeeId);
         if (!optEmployee.isPresent()) {
-            //TODO Need to fix in Exception Handling
-            //throw new ResourceNotFoundException("Employee with id " + employeeId + " not found");
+            throw new ApiRuntimeException("Employee with id " + employeeId + " not found");
         }
         Employee employee = optEmployee.get();
         employee.setName(employeeRequestDTO.getName());
         employee.setSalary(employeeRequestDTO.getSalary());
         employee.setDepartment(employeeRequestDTO.getDepartment());
         employeeRepository.save(employee);
+        return modelMapper.map(employee, EmployeeResponseDTO.class);
     }
 }
