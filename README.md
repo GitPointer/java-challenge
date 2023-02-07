@@ -1,3 +1,28 @@
+### Here I am:
+My name is Vikas Tandon and I have approximately 13 years of experience in the software industry. Currently, I am working as a Technical Manager. Although I have not used Spring Boot for around 1 year, I have prior experience with it.
+
+ I approached this technical assignment by starting with [**fixing the issue in basic CRUD operation**] (https://github.com/GitPointer/java-challenge/issues/1). This was crucial in ensuring that the core functionality of the system was working correctly. 
+ 
+ I then utilized [**DTO (Data Transfer Object) to communicate between the Controller and Service layers**] (https://github.com/GitPointer/java-challenge/issues/3), allowing for clear and efficient communication between the different layers. 
+ 
+ I also added [**exception handling and returned appropriate HTTP status codes**] (https://github.com/GitPointer/java-challenge/issues/5), to handle any errors or exceptions in a meaningful way and provide clear feedback to the user.
+
+Next, I [**upgraded the Spring Boot and Java version**] (https://github.com/GitPointer/java-challenge/issues/7) to ensure that the system was using the latest and most secure version, which also provides better performance and bug fixes. 
+
+I also [**protected the controller endpoints**] (https://github.com/GitPointer/java-challenge/issues/9) to secure the system against unauthorized access and ensure data privacy. 
+
+Then, I [**added caching logic for database calls**] (https://github.com/GitPointer/java-challenge/issues/11) to optimize performance and reduce response times. 
+
+Lastly, I added [**Swagger configuration for API documentation**] (https://github.com/GitPointer/java-challenge/issues/13), which is essential for clear and concise documentation and effective communication and collaboration with team members and stakeholders."
+
+
+"I am working on these open issues (https://github.com/GitPointer/java-challenge/issues/18, https://github.com/GitPointer/java-challenge/issues/17, https://github.com/GitPointer/java-challenge/issues/16, and https://github.com/GitPointer/java-challenge/issues/15). Implementing unit tests, containerizing the app, adding logging, and profiling for the development and production environments are important steps in ensuring the reliability, performance, and maintainability of the system.
+
+
+The link, https://github.com/GitPointer/java-challenge/pulse, should provide a summary of the situation regarding the technical assignment.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ### How to use this spring-boot project
 
 - Install packages with `mvn package`
