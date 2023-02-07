@@ -7,6 +7,9 @@ import jp.co.axa.apidemo.excpetions.ApiRuntimeException;
 import jp.co.axa.apidemo.repositories.EmployeeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,14 +24,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Autowired
     private ModelMapper modelMapper;
-
+    @Cacheable(value = "employees")
     public List<EmployeeResponseDTO> retrieveEmployees() {
         List<Employee> employees = employeeRepository.findAll();
         List<EmployeeResponseDTO> employeeResponseDTOS = new ArrayList<>();
         employees.forEach(employee -> employeeResponseDTOS.add(modelMapper.map(employee, EmployeeResponseDTO.class)));
         return employeeResponseDTOS;
     }
-
+    @Cacheable(cacheNames = "employees", key = "#employeeId")
     public EmployeeResponseDTO getEmployee(Long employeeId) {
         Optional<Employee> optEmployee = employeeRepository.findById(employeeId);
         if (!optEmployee.isPresent()) {
@@ -44,6 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         return modelMapper.map(employee, EmployeeResponseDTO.class);
     }
 
+    @CacheEvict(cacheNames = "employees", key = "#employeeId", allEntries = false)
     public void deleteEmployee(Long employeeId){
         Optional<Employee> optEmployee = employeeRepository.findById(employeeId);
         if (!optEmployee.isPresent()) {
@@ -52,6 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         employeeRepository.deleteById(employeeId);
     }
 
+    @CachePut(cacheNames = "employees", key = "#employeeId")
     public EmployeeResponseDTO updateEmployee(EmployeeRequestDTO employeeRequestDTO, Long employeeId) {
         Optional<Employee> optEmployee = employeeRepository.findById(employeeId);
         if (!optEmployee.isPresent()) {
