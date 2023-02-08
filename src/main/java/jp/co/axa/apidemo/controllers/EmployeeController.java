@@ -7,8 +7,9 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jp.co.axa.apidemo.dto.EmployeeRequestDTO;
 import jp.co.axa.apidemo.dto.EmployeeResponseDTO;
-import jp.co.axa.apidemo.entities.Employee;
 import jp.co.axa.apidemo.services.EmployeeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +25,7 @@ import java.util.List;
 @Api( tags = {"Employee Service"})
 @Tag(name = "Employee Service", description = "These services manage employees")
 public class EmployeeController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
 
     @Autowired
     private EmployeeService employeeService;
@@ -45,8 +47,10 @@ public class EmployeeController {
             @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<List<EmployeeResponseDTO>> getEmployees() {
-        return new ResponseEntity<>(employeeService.retrieveEmployees(), HttpStatus.OK);
-
+        LOGGER.info("Received request to get all employees");
+        List<EmployeeResponseDTO> employees = employeeService.retrieveEmployees();
+        LOGGER.info("Returning {} employees", employees.size());
+        return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
     @GetMapping("/employees/{employeeId}")
@@ -63,8 +67,10 @@ public class EmployeeController {
             @ApiResponse(code = 404, message = "Employee not found")
     })
     public ResponseEntity<EmployeeResponseDTO> getEmployee(@PathVariable(name="employeeId")Long employeeId) {
-        return new ResponseEntity<>(employeeService.getEmployee(employeeId), HttpStatus.OK);
-    }
+        LOGGER.info("Received request to get employee with id {}", employeeId);
+        EmployeeResponseDTO employee = employeeService.getEmployee(employeeId);
+        LOGGER.info("Returning employee with id {}", employeeId);
+        return new ResponseEntity<>(employee, HttpStatus.OK);    }
 
     @PostMapping("/employees")
     @PreAuthorize("hasRole('ADMIN')")
@@ -81,7 +87,10 @@ public class EmployeeController {
             @ApiResponse(code = 400, message = "Bad request")
     })
     public ResponseEntity<EmployeeResponseDTO> saveEmployee(@RequestBody @Valid EmployeeRequestDTO employeeRequestDTO){
-        return new ResponseEntity<>(employeeService.saveEmployee(employeeRequestDTO), HttpStatus.CREATED);
+        LOGGER.info("Saving employee: {}", employeeRequestDTO);
+        EmployeeResponseDTO response = employeeService.saveEmployee(employeeRequestDTO);
+        LOGGER.info("Saved employee: {}", response);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/employees/{employeeId}")
@@ -99,8 +108,11 @@ public class EmployeeController {
             @ApiResponse(code = 404, message = "Employee not found")
     })
     public ResponseEntity<Void> deleteEmployee(@PathVariable(name="employeeId")Long employeeId){
+        LOGGER.info("Deleting employee with ID: {}", employeeId);
         employeeService.deleteEmployee(employeeId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);    }
+        LOGGER.info("Deleted employee with ID: {}", employeeId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
     @PutMapping("/employees/{employeeId}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -118,8 +130,10 @@ public class EmployeeController {
     })
     public ResponseEntity<EmployeeResponseDTO> updateEmployee(@RequestBody @Valid EmployeeRequestDTO employeeRequestDTO,
                                @PathVariable(name="employeeId")Long employeeId){
-        EmployeeResponseDTO emp = employeeService.getEmployee(employeeId);
-        return new ResponseEntity<>(employeeService.updateEmployee(employeeRequestDTO, employeeId), HttpStatus.OK);
+        LOGGER.info("Updating employee with ID: {} with data: {}", employeeId, employeeRequestDTO);
+        EmployeeResponseDTO updatedEmp = employeeService.updateEmployee(employeeRequestDTO, employeeId);
+        LOGGER.info("Updated employee: {}", updatedEmp);
+        return new ResponseEntity<>(updatedEmp, HttpStatus.OK);
     }
 
 }
