@@ -1,5 +1,5 @@
 ### Here I am:
-My name is Vikas Tandon and I have approximately 13 years of experience in the software industry. Currently, I am working as a Technical Manager. Although I have not used Spring Boot for around 1 year, I have prior experience with it.
+My name is Vikas Tandon and I have around 13 years of experience in the software industry. Currently, I am working as a Technical Manager. Although I have not used Spring Boot for around 1 year, I have prior experience with it.
 
  I approached this technical assignment by starting with [**fixing the issue in basic CRUD operation**] (https://github.com/GitPointer/java-challenge/issues/1). This was crucial in ensuring that the core functionality of the system was working correctly. 
  
@@ -15,8 +15,9 @@ Then, I [**added caching logic for database calls**] (https://github.com/GitPoin
 
 Lastly, I added [**Swagger configuration for API documentation**] (https://github.com/GitPointer/java-challenge/issues/13), which is essential for clear and concise documentation and effective communication and collaboration with team members and stakeholders."
 
+Added logging(https://github.com/GitPointer/java-challenge/issues/16) 
 
-"I am working on these open issues (https://github.com/GitPointer/java-challenge/issues/18, https://github.com/GitPointer/java-challenge/issues/17, https://github.com/GitPointer/java-challenge/issues/16, and https://github.com/GitPointer/java-challenge/issues/15). Implementing unit tests, containerizing the app, adding logging, and profiling for the development and production environments are important steps in ensuring the reliability, performance, and maintainability of the system.
+"I am working on these open issues (https://github.com/GitPointer/java-challenge/issues/18, https://github.com/GitPointer/java-challenge/issues/17,  and https://github.com/GitPointer/java-challenge/issues/15). Implementing unit tests, containerizing the app, and profiling for the development and production environments are important steps in ensuring the reliability, performance, and maintainability of the system.
 
 
 The link, https://github.com/GitPointer/java-challenge/pulse, should provide a summary of the situation regarding the technical assignment.
