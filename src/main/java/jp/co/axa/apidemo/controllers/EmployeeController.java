@@ -131,8 +131,6 @@ public class EmployeeController {
     public ResponseEntity<EmployeeResponseDTO> updateEmployee(@RequestBody @Valid EmployeeRequestDTO employeeRequestDTO,
                                @PathVariable(name="employeeId")Long employeeId){
         LOGGER.info("Updating employee with ID: {} with data: {}", employeeId, employeeRequestDTO);
-        EmployeeResponseDTO emp = employeeService.getEmployee(employeeId);
-        LOGGER.info("Retrieved employee to update: {}", emp);
         EmployeeResponseDTO updatedEmp = employeeService.updateEmployee(employeeRequestDTO, employeeId);
         LOGGER.info("Updated employee: {}", updatedEmp);
         return new ResponseEntity<>(updatedEmp, HttpStatus.OK);
