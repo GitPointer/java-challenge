@@ -27,7 +27,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Autowired
     private ModelMapper modelMapper;
-    @Cacheable(value = "employees")
     public List<EmployeeResponseDTO> retrieveEmployees() {
         LOGGER.info("Retrieving all employees from the database.");
         List<Employee> employees = employeeRepository.findAll();
