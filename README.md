@@ -13,14 +13,14 @@ I also [**protected the controller endpoints**] (https://github.com/GitPointer/j
 
 Then, I [**added caching logic for database calls**] (https://github.com/GitPointer/java-challenge/issues/11) to optimize performance and reduce response times. 
 
-Lastly, I added [**Swagger configuration for API documentation**] (https://github.com/GitPointer/java-challenge/issues/13), which is essential for clear and concise documentation and effective communication and collaboration with team members and stakeholders."
+Lastly, I added [**Swagger configuration for API documentation**] (https://github.com/GitPointer/java-challenge/issues/13), which is essential for clear and concise documentation and effective communication and collaboration with team members and stakeholders.
 
 Added logging(https://github.com/GitPointer/java-challenge/issues/16) 
 
-"I am working on these open issues (https://github.com/GitPointer/java-challenge/issues/18, https://github.com/GitPointer/java-challenge/issues/17,  and https://github.com/GitPointer/java-challenge/issues/15). Implementing unit tests, containerizing the app, and profiling for the development and production environments are important steps in ensuring the reliability, performance, and maintainability of the system.
+I am working on these open issues (https://github.com/GitPointer/java-challenge/issues/18, https://github.com/GitPointer/java-challenge/issues/17,  and https://github.com/GitPointer/java-challenge/issues/15). Implementing unit tests, containerizing the app, and profiling for the development and production environments are important steps in ensuring the reliability, performance, and maintainability of the system.
 
 
-The link, https://github.com/GitPointer/java-challenge/pulse, should provide a summary of the situation regarding the technical assignment.
+The link, https://github.com/GitPointer/java-challenge/pulse/monthly, should provide a summary of the situation regarding the technical assignment.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 
